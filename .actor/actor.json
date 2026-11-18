@@ -1,0 +1,34 @@
+{
+    "$schema": "https://apify.com/schemas/v1/actor.ide.json",
+    "actorSpecification": 1,
+    "name": "website-technology-detector",
+    "title": "Website Technology & Tech Stack Detector",
+    "description": "Finds the CMS, ecommerce platform, frameworks, analytics, marketing tools, hosting and email provider behind any list of websites. Reads only the home page, the public tag manager container and DNS records.",
+    "version": "1.0",
+    "buildTag": "latest",
+    "minMemoryMbytes": 512,
+    "maxMemoryMbytes": 8192,
+    "inputSchema": "./input_schema.json",
+    "outputSchema": "./output_schema.json",
+    "storages": {
+        "dataset": "./dataset_schema.json",
+        "keyValueStore": {
+            "actorKeyValueStoreSchemaVersion": 1,
+            "title": "Report and summary",
+            "description": "What a run saves next to its dataset: an HTML report and a JSON summary of the technologies found.",
+            "collections": {
+                "report": {
+                    "title": "HTML report",
+                    "description": "The most used technologies across the checked websites, by category, with what was found in DNS records. Open it in a browser.",
+                    "key": "REPORT"
+                },
+                "summary": {
+                    "title": "JSON summary",
+                    "description": "How many websites were checked and analyzed, the technologies by number of websites, and why websites were not analyzed.",
+                    "key": "OUTPUT"
+                }
+            }
+        }
+    },
+    "dockerfile": "../Dockerfile"
+}

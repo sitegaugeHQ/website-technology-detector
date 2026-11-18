@@ -1,0 +1,47 @@
+{
+    "$schema": "https://apify.com/schemas/v1/input.ide.json",
+    "title": "Website Technology Detector input",
+    "description": "Give a list of websites. The home page of each one is read once, and you get one row per website with the technologies found on it.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "websites": {
+            "title": "Websites",
+            "type": "array",
+            "description": "Domains or URLs to check, one per line, for example example.com or https://www.example.com. The home page of each website is read once.",
+            "editor": "stringList",
+            "prefill": [
+                "apify.com",
+                "crawlee.dev",
+                "wordpress.org"
+            ]
+        },
+        "checkDns": {
+            "title": "Read DNS records",
+            "type": "boolean",
+            "description": "Look up the public DNS records of each domain to find its email provider, DNS provider, email sending services and services connected through verification records.",
+            "default": true
+        },
+        "readTagManager": {
+            "title": "Read the tag manager container",
+            "type": "boolean",
+            "description": "Analytics and advertising tags are often loaded through Google Tag Manager and do not appear in the page itself. When a page uses a container, read it to find them.",
+            "default": true
+        },
+        "includeEvidence": {
+            "title": "Include evidence",
+            "type": "boolean",
+            "description": "Add to every technology the signals it was recognised by, such as a header, a cookie name or a script address.",
+            "default": true
+        },
+        "maxConcurrency": {
+            "title": "Websites checked in parallel",
+            "type": "integer",
+            "description": "The most websites worked on at the same time. A run starts websites at the pace its share of processor time allows, so giving the run more memory makes it faster. Each website still gets at most two requests per second.",
+            "default": 30,
+            "minimum": 1,
+            "maximum": 100
+        }
+    },
+    "required": ["websites"]
+}

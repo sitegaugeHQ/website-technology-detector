@@ -1,0 +1,16 @@
+{
+  "MX wp.example": ["aspmx.l.google.com", "alt1.aspmx.l.google.com"],
+  "TXT wp.example": ["v=spf1 include:_spf.google.com include:sendgrid.net include:servers.mcsv.net ~all", "google-site-verification=abc", "MS=ms12345678", "atlassian-domain-verification=xyz", "stripe-verification=123"],
+  "NS wp.example": ["dana.ns.cloudflare.com", "rob.ns.cloudflare.com"],
+  "TXT _dmarc.wp.example": ["v=DMARC1; p=quarantine; rua=mailto:x@wp.example"],
+  "CNAME www.wp.example": ["wp.example.wpenginepowered.com"],
+  "MX shop.example": ["shop-example.mail.protection.outlook.com"],
+  "TXT shop.example": ["v=spf1 include:spf.protection.outlook.com include:shops.shopify.com -all", "facebook-domain-verification=abc", "klaviyo-site-verification=K1"],
+  "NS shop.example": ["ns-123.awsdns-45.org", "ns-678.awsdns-90.co.uk"],
+  "CNAME www.shop.example": ["shops.myshopify.com"],
+  "MX next.example": [],
+  "NS next.example": ["ns1.vercel-dns.com"],
+  "CNAME www.next.example": ["cname.vercel-dns.com"],
+  "MX blocked.example": ["mx1.blocked.example"],
+  "NS blocked.example": ["ns1.unknown-host.example"]
+}

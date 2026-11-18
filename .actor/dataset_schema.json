@@ -1,0 +1,112 @@
+{
+  "$schema": "https://apify.com/schemas/v1/dataset.ide.json",
+  "actorSpecification": 1,
+  "title": "Websites",
+  "description": "One row per website in the input, with the technologies found on it and the evidence for each.",
+  "fields": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "input": {"type": "string", "description": "The website as it was given in the input."},
+      "url": {"type": "string", "nullable": true, "description": "The address that was requested first."},
+      "finalUrl": {"type": "string", "nullable": true, "description": "The address of the page that was read, after redirects."},
+      "status": {"type": "string", "description": "analyzed, blocked, robots_disallowed, unreachable, http_error, not_html, invalid or error. Only websites with the status analyzed are charged."},
+      "statusCode": {"type": "integer", "nullable": true, "description": "HTTP status code of the page."},
+      "message": {"type": "string", "nullable": true, "description": "Why the website was not analyzed, in plain words. Empty for analyzed websites."},
+      "title": {"type": "string", "nullable": true, "description": "Title of the page."},
+      "language": {"type": "string", "nullable": true, "description": "Language the page declares, for example en."},
+      "technologyCount": {"type": "integer", "description": "Number of technologies found on the website. Services that only appear in DNS records are not counted."},
+      "technologyList": {"type": "string", "description": "All technologies found, separated by semicolons, the most telling categories first."},
+      "cms": {"type": "string", "nullable": true, "description": "Content management system, for example WordPress or Drupal. Several values are separated by semicolons."},
+      "ecommerce": {"type": "string", "nullable": true, "description": "Ecommerce platform, for example Shopify or WooCommerce. Several values are separated by semicolons."},
+      "websiteBuilder": {"type": "string", "nullable": true, "description": "Website builder, for example Wix, Squarespace or Webflow. Several values are separated by semicolons."},
+      "frameworks": {"type": "string", "nullable": true, "description": "JavaScript and web frameworks, for example Next.js or React. Several values are separated by semicolons."},
+      "analytics": {"type": "string", "nullable": true, "description": "Analytics tools, for example Google Analytics or Matomo. Several values are separated by semicolons."},
+      "tagManagers": {"type": "string", "nullable": true, "description": "Tag managers, for example Google Tag Manager. Several values are separated by semicolons."},
+      "advertising": {"type": "string", "nullable": true, "description": "Advertising pixels and tags, for example Meta Pixel or Google Ads. Several values are separated by semicolons."},
+      "marketing": {"type": "string", "nullable": true, "description": "Marketing automation, CRM and email marketing tools, for example HubSpot or Klaviyo. Several values are separated by semicolons."},
+      "liveChat": {"type": "string", "nullable": true, "description": "Live chat and support tools, for example Intercom or Zendesk. Several values are separated by semicolons."},
+      "payments": {"type": "string", "nullable": true, "description": "Payment providers, for example Stripe or PayPal. Several values are separated by semicolons."},
+      "cookieConsent": {"type": "string", "nullable": true, "description": "Cookie consent tools, for example OneTrust or Cookiebot. Several values are separated by semicolons."},
+      "hosting": {"type": "string", "nullable": true, "description": "Hosting providers and CDNs, for example Cloudflare or Vercel. Several values are separated by semicolons."},
+      "emailProvider": {"type": "string", "nullable": true, "description": "Where the domain receives its email, from its MX records, for example Google Workspace."},
+      "dnsProvider": {"type": "string", "nullable": true, "description": "DNS provider or providers of the domain, from its name servers. Several values are separated by semicolons."},
+      "emailSenders": {"type": "string", "nullable": true, "description": "Services allowed to send email for the domain, from its SPF record. Several values are separated by semicolons."},
+      "connectedServices": {"type": "string", "nullable": true, "description": "Services the domain has been verified with, from its TXT records. Several values are separated by semicolons."},
+      "technologyNames": {"type": "array", "items": {"type": "string"}, "description": "Names of all technologies found on the website."},
+      "technologies": {"type": "array", "description": "Every technology with its category, its version when the page shows one, and the evidence it was recognised by.", "items": {"type": "object", "properties": {"name": {"type": "string", "description": "Name of the technology."}, "category": {"type": "string", "description": "Category of the technology, for example CMS or Analytics."}, "version": {"type": "string", "nullable": true, "description": "Version, when the page shows it."}, "evidence": {"type": "array", "nullable": true, "items": {"type": "string"}, "description": "Signals the technology was recognised by, for example a header, a cookie name or a script address."}}}},
+      "categories": {"type": "object", "description": "Technology names grouped by category."},
+      "wordpress": {"type": "object", "nullable": true, "description": "On WordPress websites: the theme and the plugin folders that the page loads."},
+      "shopify": {"type": "object", "nullable": true, "description": "On Shopify stores: the theme."},
+      "dns": {"type": "object", "nullable": true, "description": "What the domain's public DNS records show: email provider, mail servers, DNS provider, name servers, SPF senders, DMARC policy and connected services."},
+      "redirectCount": {"type": "integer", "nullable": true, "description": "Number of redirects followed before the page was read."},
+      "responseTimeMs": {"type": "number", "nullable": true, "description": "Time the page took to answer, in milliseconds."},
+      "checkedAt": {"type": "string", "nullable": true, "description": "When the website was checked, in UTC (ISO 8601)."}
+    }
+  },
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "description": "One column per kind of technology: CMS, ecommerce, frameworks, analytics, advertising, marketing, chat, payments, hosting and email provider.",
+      "transformation": {"fields": ["input", "status", "technologyCount", "cms", "ecommerce", "websiteBuilder", "frameworks", "analytics", "tagManagers", "advertising", "marketing", "liveChat", "payments", "hosting", "emailProvider"]},
+      "display": { "component": "table", "properties": {
+        "input": {"label": "Website", "format": "text"},
+        "status": {"label": "Status", "format": "text"},
+        "technologyCount": {"label": "Technologies", "format": "number"},
+        "cms": {"label": "CMS", "format": "text"},
+        "ecommerce": {"label": "Ecommerce", "format": "text"},
+        "websiteBuilder": {"label": "Website builder", "format": "text"},
+        "frameworks": {"label": "Frameworks", "format": "text"},
+        "analytics": {"label": "Analytics", "format": "text"},
+        "tagManagers": {"label": "Tag manager", "format": "text"},
+        "advertising": {"label": "Advertising", "format": "text"},
+        "marketing": {"label": "Marketing", "format": "text"},
+        "liveChat": {"label": "Chat and support", "format": "text"},
+        "payments": {"label": "Payments", "format": "text"},
+        "hosting": {"label": "Hosting and CDN", "format": "text"},
+        "emailProvider": {"label": "Email provider", "format": "text"}
+      } }
+    },
+    "technologies": {
+      "title": "All technologies",
+      "description": "The full technology list of every website, with the page title and language.",
+      "transformation": {"fields": ["input", "finalUrl", "title", "language", "technologyCount", "technologyList", "cookieConsent"]},
+      "display": { "component": "table", "properties": {
+        "input": {"label": "Website", "format": "text"},
+        "finalUrl": {"label": "Page read", "format": "link"},
+        "title": {"label": "Page title", "format": "text"},
+        "language": {"label": "Language", "format": "text"},
+        "technologyCount": {"label": "Technologies", "format": "number"},
+        "technologyList": {"label": "Technology list", "format": "text"},
+        "cookieConsent": {"label": "Cookie consent", "format": "text"}
+      } }
+    },
+    "domain": {
+      "title": "Email and DNS",
+      "description": "What the domain's DNS records show: email provider, email sending services, DNS provider and connected services.",
+      "transformation": {"fields": ["input", "emailProvider", "emailSenders", "dnsProvider", "connectedServices"]},
+      "display": { "component": "table", "properties": {
+        "input": {"label": "Website", "format": "text"},
+        "emailProvider": {"label": "Email provider", "format": "text"},
+        "emailSenders": {"label": "Sends email through", "format": "text"},
+        "dnsProvider": {"label": "DNS provider", "format": "text"},
+        "connectedServices": {"label": "Connected services", "format": "text"}
+      } }
+    },
+    "status": {
+      "title": "Status",
+      "description": "Which websites were analyzed and why the others were not, with HTTP status, redirects and response time.",
+      "transformation": {"fields": ["input", "status", "statusCode", "message", "finalUrl", "redirectCount", "responseTimeMs", "checkedAt"]},
+      "display": { "component": "table", "properties": {
+        "input": {"label": "Website", "format": "text"},
+        "status": {"label": "Status", "format": "text"},
+        "statusCode": {"label": "HTTP status", "format": "number"},
+        "message": {"label": "Note", "format": "text"},
+        "finalUrl": {"label": "Page read", "format": "link"},
+        "redirectCount": {"label": "Redirects", "format": "number"},
+        "responseTimeMs": {"label": "Response (ms)", "format": "number"},
+        "checkedAt": {"label": "Checked at", "format": "date"}
+      } }
+    }
+  }
+}
